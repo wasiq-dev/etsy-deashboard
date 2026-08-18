@@ -1,5 +1,8 @@
+"use client";
+
 import Sidebar from "./components/Sidebar";
 import StatsSection from "./components/StatsSection";
+import { useAuth } from "./context/AuthContext";
 import {
   Star,
   ExternalLinkIcon,
@@ -50,6 +53,13 @@ const topTasks = [
 ];
 
 export default function Home() {
+  const { user } = useAuth();
+  if (!user) return null;
+
+  const shopSlug = user.shopName
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
+
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-white text-[#222] font-sans lg:flex-row">
       <Sidebar />
@@ -59,10 +69,13 @@ export default function Home() {
         <div className="mx-auto max-w-[1180px] px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
           {/* Shop header */}
           <header className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-5">
-            <ShopAvatar />
+            <ShopAvatar
+              color={user.avatarColor}
+              letter={user.shopName.trim().charAt(0).toUpperCase() || "?"}
+            />
             <div>
               <h2 className="text-[24px] font-medium leading-tight text-[#222] sm:text-[30px]">
-                Hi there, CyberResourcesInc
+                Hi there, {user.shopName}
               </h2>
               <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[14px] text-[#595959] sm:text-[15px]">
                 <span className="flex items-center gap-1.5">
@@ -85,7 +98,7 @@ export default function Home() {
                   href="#"
                   className="flex items-center gap-1 text-[#595959] hover:text-[#222]"
                 >
-                  cyberresourcesinc.etsy.com
+                  {shopSlug}.etsy.com
                   <ExternalLinkIcon />
                 </a>
               </div>
@@ -259,7 +272,7 @@ export default function Home() {
   );
 }
 
-function ShopAvatar() {
+function ShopAvatar({ color, letter }: { color: string; letter: string }) {
   return (
     <div className="relative shrink-0">
       <div className="flex h-[72px] w-[72px] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-[#1b3a4b] to-[#0f2733]">
@@ -279,12 +292,12 @@ function ShopAvatar() {
           />
         </svg>
       </div>
-      {/* Purple hexagon C badge */}
+      {/* Hexagon badge, tinted with the account's avatar color */}
       <div className="absolute -right-3 top-1/2 -translate-y-1/2">
         <svg width="44" height="48" viewBox="0 0 44 48">
           <path
             d="M22 1 41 12v24L22 47 3 36V12Z"
-            fill="#c9b8e8"
+            fill={color}
             stroke="#fff"
             strokeWidth="2"
           />
@@ -296,7 +309,7 @@ function ShopAvatar() {
             fontWeight="600"
             fill="#fff"
           >
-            C
+            {letter}
           </text>
         </svg>
       </div>

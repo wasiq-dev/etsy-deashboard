@@ -615,6 +615,44 @@ export function CoinIcon(p: IconProps) {
   );
 }
 
+export function LockIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <rect x="5" y="11" width="14" height="9" rx="1.5" />
+      <path d="M8 11V7.5a4 4 0 0 1 8 0V11" />
+    </svg>
+  );
+}
+
+export function EyeIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12Z" />
+      <circle cx="12" cy="12" r="2.6" />
+    </svg>
+  );
+}
+
+export function EyeOffIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M3 3l18 18" />
+      <path d="M10.6 5.7A10.6 10.6 0 0 1 12 5.5c6.5 0 10 6.5 10 6.5a15.4 15.4 0 0 1-3.4 4.1M6.5 7.4A15.6 15.6 0 0 0 2 12s3.5 6.5 10 6.5c1.4 0 2.6-.2 3.7-.6" />
+      <path d="M9.5 10a2.6 2.6 0 0 0 3.6 3.6" />
+    </svg>
+  );
+}
+
+export function LogoutIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M9 4H6a1.5 1.5 0 0 0-1.5 1.5v13A1.5 1.5 0 0 0 6 20h3" />
+      <path d="M15 16l4-4-4-4" />
+      <path d="M19 12H9" />
+    </svg>
+  );
+}
+
 export function Star({ fill = "full" }: { fill?: "full" | "half" }) {
   if (fill === "half") {
     return (

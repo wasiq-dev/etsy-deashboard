@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   SearchIcon,
   HomeIcon,
@@ -20,7 +21,9 @@ import {
   ChevronUpIcon,
   MenuIcon,
   PencilIcon,
+  LogoutIcon,
 } from "./icons";
+import { useAuth } from "../context/AuthContext";
 import type { ReactNode } from "react";
 
 type NavChild = {
@@ -65,7 +68,12 @@ const items: NavItem[] = [
   { label: "Finances", icon: <FinancesIcon />, expandable: true },
   { label: "Apps", icon: <AppsIcon /> },
   { label: "Help", icon: <HelpIcon />, expandable: true },
-  { label: "Settings", icon: <GearIcon />, expandable: true },
+  {
+    label: "Settings",
+    icon: <GearIcon />,
+    expandable: true,
+    children: [{ label: "Account", href: "/account" }],
+  },
 ];
 
 function SidebarContent({
@@ -220,21 +228,90 @@ function SidebarContent({
       </div>
 
       {/* Profile */}
-      <div className="mt-auto border-t border-[#e5e3dc] px-3 py-3">
-        <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2 hover:bg-[#efeee8]">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#d9d7cf] text-[#595959]">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="12" cy="9" r="4" />
-              <path d="M4 21a8 8 0 0 1 16 0Z" />
-            </svg>
-          </span>
-          <span className="flex-1 text-left text-[15px] font-medium text-[#222]">
-            Shahzaib
-          </span>
-          <ChevronUpIcon className="shrink-0 text-[#595959]" />
-        </button>
-      </div>
+      <ProfileMenu onNavigate={onNavigate} />
     </>
+  );
+}
+
+function ProfileMenu({ onNavigate }: { onNavigate?: () => void }) {
+  const { user, logout } = useAuth();
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!open) return;
+    function onClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, [open]);
+
+  if (!user) return null;
+
+  return (
+    <div
+      ref={menuRef}
+      className="relative mt-auto border-t border-[#e5e3dc] px-3 py-3"
+    >
+      {open && (
+        <div className="absolute bottom-full left-3 right-3 mb-1 overflow-hidden rounded-lg border border-[#e5e3dc] bg-white shadow-lg">
+          <div className="border-b border-[#e5e3dc] px-3.5 py-3">
+            <p className="truncate text-[14px] font-medium text-[#222]">
+              {user.shopName}
+            </p>
+            <p className="truncate text-[13px] text-[#595959]">{user.email}</p>
+          </div>
+          <Link
+            href="/account"
+            onClick={() => {
+              setOpen(false);
+              onNavigate?.();
+            }}
+            className="flex items-center gap-2.5 px-3.5 py-2.5 text-[14px] text-[#3c3c3c] hover:bg-[#f4f3ee]"
+          >
+            <GearIcon width={17} height={17} />
+            Account settings
+          </Link>
+          <button
+            onClick={() => {
+              setOpen(false);
+              onNavigate?.();
+              logout();
+              router.replace("/login");
+            }}
+            className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-[14px] text-[#3c3c3c] hover:bg-[#f4f3ee]"
+          >
+            <LogoutIcon width={17} height={17} />
+            Log out
+          </button>
+        </div>
+      )}
+
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full items-center gap-3 rounded-lg px-3 py-2 hover:bg-[#efeee8]"
+      >
+        <span
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[14px] font-semibold text-white"
+          style={{ backgroundColor: user.avatarColor }}
+        >
+          {user.shopName.trim().charAt(0).toUpperCase() || "?"}
+        </span>
+        <span className="min-w-0 flex-1 truncate text-left text-[15px] font-medium text-[#222]">
+          {user.shopName}
+        </span>
+        {open ? (
+          <ChevronDownIcon className="shrink-0 text-[#595959]" />
+        ) : (
+          <ChevronUpIcon className="shrink-0 text-[#595959]" />
+        )}
+      </button>
+    </div>
   );
 }
 
