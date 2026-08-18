@@ -23,6 +23,11 @@ import {
 } from "./icons";
 import type { ReactNode } from "react";
 
+type NavChild = {
+  label: string;
+  href: string;
+};
+
 type NavItem = {
   label: string;
   icon: ReactNode;
@@ -31,6 +36,7 @@ type NavItem = {
   badge?: number;
   newPill?: boolean;
   dot?: boolean;
+  children?: NavChild[];
 };
 
 const items: NavItem[] = [
@@ -43,7 +49,19 @@ const items: NavItem[] = [
   { label: "Stats", icon: <StatsIcon />, expandable: true, newPill: true },
   { label: "Customer service stats", icon: <GearIcon /> },
   { label: "Policy violations", icon: <FlagIcon /> },
-  { label: "Marketing", icon: <MarketingIcon />, expandable: true, dot: true },
+  {
+    label: "Marketing",
+    icon: <MarketingIcon />,
+    expandable: true,
+    dot: true,
+    children: [
+      { label: "Etsy Ads", href: "/marketing/etsy-ads" },
+      { label: "Offsite Ads", href: "/marketing/offsite-ads" },
+      { label: "Sales and discounts", href: "/marketing/sales-and-discounts" },
+      { label: "Social media", href: "/marketing/social-media" },
+      { label: "Share & Save", href: "/marketing/share-and-save" },
+    ],
+  },
   { label: "Finances", icon: <FinancesIcon />, expandable: true },
   { label: "Apps", icon: <AppsIcon /> },
   { label: "Help", icon: <HelpIcon />, expandable: true },
@@ -57,15 +75,38 @@ function SidebarContent({
   active: string;
   onNavigate?: () => void;
 }) {
+  const [expanded, setExpanded] = useState<Set<string>>(
+    () =>
+      new Set(
+        items
+          .filter((item) => item.children?.some((c) => c.label === active))
+          .map((item) => item.label)
+      )
+  );
+
+  const toggleExpanded = (label: string) => {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(label)) next.delete(label);
+      else next.add(label);
+      return next;
+    });
+  };
+
   return (
     <>
       {/* Nav */}
       <nav className="flex flex-col gap-0.5 px-3">
         {items.map((item) => {
           const isActive = item.label === active;
+          const hasChildren = !!item.children;
+          const isChildActive = item.children?.some((c) => c.label === active);
+          const isOpen = expanded.has(item.label);
           const className = `flex items-center gap-3 rounded-lg px-3 py-2 text-left text-[15px] transition-colors ${
             isActive
               ? "bg-[#e4e2db] font-semibold text-[#222]"
+              : isChildActive || isOpen
+              ? "bg-[#f4f3ee] font-semibold text-[#222]"
               : "text-[#3c3c3c] hover:bg-[#efeee8]"
           }`;
           const content = (
@@ -73,7 +114,7 @@ function SidebarContent({
               <span className="shrink-0 text-[#222]">{item.icon}</span>
               <span className="flex items-center gap-2">
                 {item.label}
-                {item.dot && (
+                {item.dot && !isChildActive && !isOpen && (
                   <span className="h-[7px] w-[7px] rounded-full bg-[#2f9cbb]" />
                 )}
               </span>
@@ -89,25 +130,56 @@ function SidebarContent({
                   </span>
                 )}
                 {item.expandable && (
-                  <ChevronDownIcon className="shrink-0 text-[#595959]" />
+                  <ChevronDownIcon
+                    className={`shrink-0 text-[#595959] transition-transform ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
                 )}
               </span>
             </>
           );
 
-          return item.href ? (
-            <Link
-              key={item.label}
-              href={item.href}
-              onClick={onNavigate}
-              className={className}
-            >
-              {content}
-            </Link>
-          ) : (
-            <button key={item.label} onClick={onNavigate} className={className}>
-              {content}
-            </button>
+          return (
+            <div key={item.label}>
+              {item.href ? (
+                <Link href={item.href} onClick={onNavigate} className={className}>
+                  {content}
+                </Link>
+              ) : (
+                <button
+                  onClick={() =>
+                    hasChildren ? toggleExpanded(item.label) : onNavigate?.()
+                  }
+                  aria-expanded={hasChildren ? isOpen : undefined}
+                  className={`w-full ${className}`}
+                >
+                  {content}
+                </button>
+              )}
+
+              {hasChildren && isOpen && (
+                <div className="mt-0.5 flex flex-col gap-0.5">
+                  {item.children!.map((child) => {
+                    const childActive = child.label === active;
+                    return (
+                      <Link
+                        key={child.label}
+                        href={child.href}
+                        onClick={onNavigate}
+                        className={`rounded-lg py-2 pl-11 pr-3 text-left text-[15px] transition-colors ${
+                          childActive
+                            ? "bg-[#e4e2db] font-semibold text-[#222]"
+                            : "text-[#3c3c3c] hover:bg-[#efeee8]"
+                        }`}
+                      >
+                        {child.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           );
         })}
       </nav>

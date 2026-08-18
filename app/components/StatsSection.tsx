@@ -90,6 +90,7 @@ export default function StatsSection() {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved) as Partial<Record<DateRange, StatValues>>;
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is only readable on the client, after mount
         setOverrides(parsed);
         const current = parsed["This year"];
         if (current) {

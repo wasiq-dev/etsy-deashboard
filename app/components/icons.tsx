@@ -417,6 +417,204 @@ export function StarOutlineIcon(p: IconProps) {
   );
 }
 
+export function LightbulbIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M9 18h6" />
+      <path d="M10 21h4" />
+      <path d="M12 3a6 6 0 0 0-3.5 10.9c.7.5 1 1.1 1 1.9v.2h5v-.2c0-.8.3-1.4 1-1.9A6 6 0 0 0 12 3Z" />
+    </svg>
+  );
+}
+
+export function ThumbUpIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M7 11v9H4a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3Z" />
+      <path d="M7 11l4-7a2 2 0 0 1 2 2v4h5.5a1.5 1.5 0 0 1 1.46 1.83l-1.4 6A1.5 1.5 0 0 1 17.1 19H10a3 3 0 0 1-3-3v-5Z" />
+    </svg>
+  );
+}
+
+export function ThumbDownIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M17 13V4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-3Z" />
+      <path d="M17 13l-4 7a2 2 0 0 1-2-2v-4H5.5a1.5 1.5 0 0 1-1.46-1.83l1.4-6A1.5 1.5 0 0 1 6.9 5H14a3 3 0 0 1 3 3v5Z" />
+    </svg>
+  );
+}
+
+export function CartIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <circle cx="9" cy="20" r="1.4" />
+      <circle cx="17" cy="20" r="1.4" />
+      <path d="M3 4h2l2.3 11.4a1.5 1.5 0 0 0 1.5 1.2h7.9a1.5 1.5 0 0 0 1.47-1.2L20 8H6" />
+    </svg>
+  );
+}
+
+export function FastForwardIcon(p: IconProps) {
+  return (
+    <svg width={22} height={22} viewBox="0 0 24 24" fill="currentColor" {...p}>
+      <path d="M2 5.5v13a1 1 0 0 0 1.5.87l10-6.5a1 1 0 0 0 0-1.74l-10-6.5A1 1 0 0 0 2 5.5Z" />
+      <path d="M12.5 5.5v13a1 1 0 0 0 1.5.87l10-6.5a1 1 0 0 0 0-1.74l-10-6.5a1 1 0 0 0-1.5.87Z" />
+    </svg>
+  );
+}
+
+export function CursorClickIcon(p: IconProps) {
+  return (
+    <svg {...base} width={22} height={22} {...p}>
+      <path d="M6 3v3M3 6h3M4.5 4.5l2 2" />
+      <path d="M12 8 21 12l-3.8 1.4L15.8 17 12 8Z" />
+    </svg>
+  );
+}
+
+export function TrendingUpIcon(p: IconProps) {
+  return (
+    <svg {...base} width={22} height={22} {...p}>
+      <path d="M3 17 9.5 10.5 14 15l7-8" />
+      <path d="M17 7h4v4" />
+    </svg>
+  );
+}
+
+export function HeartOutlineIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M12 20s-7.5-4.6-9.6-9.3C1.2 7.6 3 4.5 6.3 4.5c1.9 0 3.4 1 4.7 2.6 1.3-1.6 2.8-2.6 4.7-2.6 3.3 0 5.1 3.1 3.9 6.2C19.5 15.4 12 20 12 20Z" />
+    </svg>
+  );
+}
+
+export function HandshakeIcon(p: IconProps) {
+  return (
+    <svg {...base} width={22} height={22} {...p}>
+      <path d="m2 12 4-4 4 2 2-2h2l5 4" />
+      <path d="m8 10 4.5 4.5a1.5 1.5 0 0 0 2.1-2.1" />
+      <path d="m10.5 12.5 2 2a1.5 1.5 0 0 0 2.1-2.1" />
+      <path d="M2 12v4l3 2 2-2" />
+      <path d="m19 12 3 2v3l-3 2-2.5-2" />
+    </svg>
+  );
+}
+
+export function BasketIcon(p: IconProps) {
+  return (
+    <svg {...base} width={22} height={22} {...p}>
+      <path d="M4 10h16l-1.5 8.5a1.5 1.5 0 0 1-1.48 1.25H6.98A1.5 1.5 0 0 1 5.5 18.5L4 10Z" />
+      <path d="M8 10 12 4l4 6" />
+      <path d="M9.5 13.5v3M14.5 13.5v3" />
+    </svg>
+  );
+}
+
+export function BundleIcon(p: IconProps) {
+  return (
+    <svg {...base} width={22} height={22} {...p}>
+      <rect x="4" y="10" width="8" height="8" rx="1" />
+      <rect x="12.5" y="6" width="7.5" height="7.5" rx="1" />
+      <path d="M14.5 13.5v3M17.5 8v3" />
+    </svg>
+  );
+}
+
+export function PercentTagIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M11.6 3a2 2 0 0 0-1.42.59L3.6 10.17a2 2 0 0 0 0 2.83l7.4 7.4a2 2 0 0 0 2.83 0l6.58-6.58A2 2 0 0 0 21 12.4V5a2 2 0 0 0-2-2h-7.4Z" />
+      <path d="m14.5 7.5-5 5" />
+      <circle cx="10" cy="7.7" r="0.9" fill="currentColor" />
+      <circle cx="14.2" cy="12" r="0.9" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function ShareIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <circle cx="6" cy="12" r="2.4" />
+      <circle cx="18" cy="5.5" r="2.4" />
+      <circle cx="18" cy="18.5" r="2.4" />
+      <path d="m8.1 10.8 7.8-4.3M8.1 13.2l7.8 4.3" />
+    </svg>
+  );
+}
+
+export function LinkIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M9.5 14.5 14.5 9.5" />
+      <path d="M11 6.5 12.6 5a3.5 3.5 0 0 1 5 5l-1.6 1.6" />
+      <path d="M13 17.5 11.4 19a3.5 3.5 0 0 1-5-5l1.6-1.6" />
+    </svg>
+  );
+}
+
+export function FacebookIcon(p: IconProps) {
+  return (
+    <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor" {...p}>
+      <path d="M14 22v-8h2.7l.4-3.3H14V8.5c0-1 .3-1.6 1.7-1.6H17V4a15 15 0 0 0-2.2-.1c-2.2 0-3.8 1.4-3.8 3.8v2.9H8.5V14H11v8h3Z" />
+    </svg>
+  );
+}
+
+export function PinterestIcon(p: IconProps) {
+  return (
+    <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor" {...p}>
+      <path d="M12 2a10 10 0 0 0-3.6 19.3c0-.8-.1-2 0-2.9l1.4-6s-.3-.7-.3-1.7c0-1.6 1-2.8 2.1-2.8 1 0 1.5.7 1.5 1.6 0 1-.6 2.5-.9 3.9-.3 1.1.6 2.1 1.7 2.1 2.1 0 3.6-2.6 3.6-5.8 0-2.4-1.7-4.2-4.7-4.2-3.5 0-5.6 2.6-5.6 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3l-.4 1.4c-.1.2-.2.3-.4.2-1.5-.7-2.4-2.8-2.4-4.6 0-3.7 2.7-7.2 7.8-7.2 4.1 0 7.3 2.9 7.3 6.8 0 4.1-2.6 7.3-6.1 7.3-1.2 0-2.3-.6-2.7-1.4l-.7 2.8c-.3 1-1 2.4-1.5 3.1A10 10 0 1 0 12 2Z" />
+    </svg>
+  );
+}
+
+export function XIcon(p: IconProps) {
+  return (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="currentColor" {...p}>
+      <path d="M18.2 3h3l-6.6 7.5L22.5 21h-6.1l-4.8-6.3L6 21H3l7.1-8.1L2 3h6.3l4.3 5.8Zm-1 16.2h1.7L7 4.7H5.2Z" />
+    </svg>
+  );
+}
+
+export function MailIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <rect x="3" y="5" width="18" height="14" rx="1.5" />
+      <path d="m4 6.5 8 6 8-6" />
+    </svg>
+  );
+}
+
+export function HashtagIcon(p: IconProps) {
+  return (
+    <svg {...base} width={22} height={22} strokeWidth={2} {...p}>
+      <path d="M5 9h14M5 15h14M10 4 8 20M16 4l-2 16" />
+    </svg>
+  );
+}
+
+export function HeartBubbleIcon(p: IconProps) {
+  return (
+    <svg {...base} width={22} height={22} {...p}>
+      <path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" />
+      <path d="M12 8.5c-.6-.7-1.4-1-2.2-1a2.3 2.3 0 0 0-2.3 2.3c0 2.1 3 3.5 4.5 4.7 1.5-1.2 4.5-2.6 4.5-4.7A2.3 2.3 0 0 0 14.2 7.5c-.8 0-1.6.3-2.2 1Z" />
+    </svg>
+  );
+}
+
+export function CoinIcon(p: IconProps) {
+  return (
+    <svg width={22} height={22} viewBox="0 0 24 24" fill="currentColor" {...p}>
+      <circle cx="12" cy="12" r="9" />
+      <text x="12" y="16.5" textAnchor="middle" fontSize="12" fontWeight="700" fill="#faf9f5">
+        $
+      </text>
+    </svg>
+  );
+}
+
 export function Star({ fill = "full" }: { fill?: "full" | "half" }) {
   if (fill === "half") {
     return (
