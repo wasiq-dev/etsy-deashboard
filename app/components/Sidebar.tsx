@@ -81,15 +81,7 @@ const items: NavItem[] = [
   {
     label: "Help",
     icon: <HelpIcon />,
-    expandable: true,
-    children: [
-      { label: "Etsy Help Centre", href: "#" },
-      { label: "Contact Us", href: "#" },
-      { label: "Community Forums", href: "#" },
-      { label: "Seller Handbook", href: "#" },
-      { label: "Report IP Infringement", href: "#" },
-      { label: "Site Policies", href: "#" },
-    ],
+    href: "https://help.etsy.com/hc/en-us",
   },
   {
     label: "Settings",
