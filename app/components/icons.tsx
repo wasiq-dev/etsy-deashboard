@@ -653,6 +653,80 @@ export function LogoutIcon(p: IconProps) {
   );
 }
 
+export function ArrowLeftIcon(p: IconProps) {
+  return (
+    <svg {...base} width={20} height={20} strokeWidth={2} {...p}>
+      <path d="M19 12H6M12 6l-6 6 6 6" />
+    </svg>
+  );
+}
+
+export function ReplyIcon(p: IconProps) {
+  return (
+    <svg {...base} width={16} height={16} {...p}>
+      <path d="M9 7 4 12l5 5" />
+      <path d="M4 12h9a7 7 0 0 1 7 7v1" />
+    </svg>
+  );
+}
+
+export function ArchiveIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <rect x="3" y="4" width="18" height="4" rx="1" />
+      <path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8" />
+      <path d="M10 12h4" />
+    </svg>
+  );
+}
+
+export function TrashIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M4 7h16" />
+      <path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+      <path d="M6 7v13a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7" />
+      <path d="M10 11v6M14 11v6" />
+    </svg>
+  );
+}
+
+export function WarningTriangleIcon(p: IconProps) {
+  return (
+    <svg width={24} height={24} viewBox="0 0 24 24" fill="none" {...p}>
+      <path
+        d="M12 3.5 21 19a1 1 0 0 1-.87 1.5H3.87A1 1 0 0 1 3 19L12 3.5Z"
+        fill="#f4c542"
+      />
+      <path
+        d="M12 9.5v4.5M12 17h.01"
+        stroke="#3c3c3c"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function RefreshIcon(p: IconProps) {
+  return (
+    <svg {...base} width={14} height={14} {...p}>
+      <path d="M20 11a8 8 0 0 0-13.5-4.2L4 9" />
+      <path d="M4 5v4h4" />
+      <path d="M4 13a8 8 0 0 0 13.5 4.2L20 15" />
+      <path d="M20 19v-4h-4" />
+    </svg>
+  );
+}
+
+export function BookmarkIcon(p: IconProps) {
+  return (
+    <svg {...base} {...p}>
+      <path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3.5L6 20V5a1 1 0 0 1 1-1Z" />
+    </svg>
+  );
+}
+
 export function Star({ fill = "full" }: { fill?: "full" | "half" }) {
   if (fill === "half") {
     return (

@@ -24,6 +24,7 @@ import {
   LogoutIcon,
 } from "./icons";
 import { useAuth } from "../context/AuthContext";
+import SearchOverlay from "./SearchOverlay";
 import type { ReactNode } from "react";
 
 type NavChild = {
@@ -35,6 +36,7 @@ type NavItem = {
   label: string;
   icon: ReactNode;
   href?: string;
+  action?: "search";
   expandable?: boolean;
   badge?: number;
   newPill?: boolean;
@@ -43,13 +45,22 @@ type NavItem = {
 };
 
 const items: NavItem[] = [
-  { label: "Search", icon: <SearchIcon /> },
+  { label: "Search", icon: <SearchIcon />, action: "search" },
   { label: "Dashboard", icon: <HomeIcon />, href: "/" },
   { label: "Listings", icon: <ListingsIcon />, href: "/listings" },
-  { label: "Messages", icon: <MessagesIcon /> },
+  { label: "Messages", icon: <MessagesIcon />, href: "/messages" },
   { label: "Orders", icon: <OrdersIcon />, href: "/orders", badge: 4 },
-  { label: "Etsy search visibility", icon: <VisibilityIcon /> },
-  { label: "Stats", icon: <StatsIcon />, expandable: true, newPill: true },
+  { label: "Etsy search visibility", icon: <VisibilityIcon />, href: "/search-visibility" },
+  {
+    label: "Stats",
+    icon: <StatsIcon />,
+    expandable: true,
+    newPill: true,
+    children: [
+      { label: "Shop traffic", href: "/stats/shop-traffic" },
+      { label: "Marketplace insights", href: "/stats/marketplace-insights" },
+    ],
+  },
   { label: "Customer service stats", icon: <GearIcon /> },
   { label: "Policy violations", icon: <FlagIcon /> },
   {
@@ -79,9 +90,11 @@ const items: NavItem[] = [
 function SidebarContent({
   active,
   onNavigate,
+  onSearch,
 }: {
   active: string;
   onNavigate?: () => void;
+  onSearch?: () => void;
 }) {
   const [expanded, setExpanded] = useState<Set<string>>(
     () =>
@@ -156,9 +169,11 @@ function SidebarContent({
                 </Link>
               ) : (
                 <button
-                  onClick={() =>
-                    hasChildren ? toggleExpanded(item.label) : onNavigate?.()
-                  }
+                  onClick={() => {
+                    if (hasChildren) return toggleExpanded(item.label);
+                    if (item.action === "search") return onSearch?.();
+                    onNavigate?.();
+                  }}
                   aria-expanded={hasChildren ? isOpen : undefined}
                   className={`w-full ${className}`}
                 >
@@ -317,9 +332,12 @@ function ProfileMenu({ onNavigate }: { onNavigate?: () => void }) {
 
 export default function Sidebar({ active = "Dashboard" }: { active?: string }) {
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <>
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
+
       {/* Mobile top bar */}
       <header className="flex shrink-0 items-center justify-between border-b border-[#e5e3dc] bg-[#faf9f5] px-4 py-3 lg:hidden">
         <h1 className="text-[18px] font-semibold leading-tight text-[#222]">
@@ -364,7 +382,14 @@ export default function Sidebar({ active = "Dashboard" }: { active?: string }) {
                 </svg>
               </button>
             </div>
-            <SidebarContent active={active} onNavigate={() => setOpen(false)} />
+            <SidebarContent
+              active={active}
+              onNavigate={() => setOpen(false)}
+              onSearch={() => {
+                setOpen(false);
+                setSearchOpen(true);
+              }}
+            />
           </aside>
         </div>
       )}
@@ -382,7 +407,7 @@ export default function Sidebar({ active = "Dashboard" }: { active?: string }) {
             <MenuIcon width={22} height={22} />
           </button>
         </div>
-        <SidebarContent active={active} />
+        <SidebarContent active={active} onSearch={() => setSearchOpen(true)} />
       </aside>
     </>
   );
